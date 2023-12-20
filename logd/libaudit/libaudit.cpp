@@ -213,3 +213,13 @@ int audit_get_reply(int fd, struct audit_message* rep, reply_t block, int peek) 
 void audit_close(int fd) {
     close(fd);
 }
+
+int audit_log_android_avc_message(int fd, const char* msg) {
+    size_t len;
+
+    if (__builtin_add_overflow(strlen(msg), 1, &len)) {
+        return -EINVAL;
+    }
+
+    return audit_send(fd, AUDIT_USER_AVC, msg, len);
+}
