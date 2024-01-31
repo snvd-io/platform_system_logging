@@ -1,12 +1,15 @@
+//! This is the old version of `config_log_level.rs` that uses the deprecated
+//! `with_min_level` method. The test should be deleted when `with_min_level` is
+//! fully removed.
+
 use std::env;
 
 #[test]
-fn config_log_max_level() {
+fn config_log_min_level() {
     // Environment variables should be overwritten by config values.
     env::set_var("RUST_LOG", "debug");
 
-    let init_result =
-        logger::init(logger::Config::default().with_max_level(log::LevelFilter::Trace));
+    let init_result = logger::init(logger::Config::default().with_min_level(log::Level::Trace));
 
     assert!(init_result);
     // Setting the level through the Config struct should impact both host and device
