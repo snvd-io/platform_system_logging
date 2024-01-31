@@ -1,6 +1,10 @@
 //! This is the old version of `config_log_level.rs` that uses the deprecated
 //! `with_min_level` method. The test should be deleted when `with_min_level` is
 //! fully removed.
+//!
+//! Do not put multiple tests in this file. Tests in the same file run in the
+//! same executable, so if there are several tests in one file, only one test
+//! will successfully be able to initialize the logger.
 
 use std::env;
 
