@@ -184,7 +184,6 @@ cc_library_static {
     ],
     visibility: [
         "//bionic/linker",
-        "//frameworks/libs/native_bridge_support/linker",
         "//frameworks/libs/native_bridge_support/android_api/linker",
         "//system/apex/libs/libapexutil",
         "//system/core/debuggerd",
