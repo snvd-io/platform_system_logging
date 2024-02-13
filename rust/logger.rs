@@ -36,13 +36,6 @@ pub struct Config<'a> {
 
 /// Based on android_logger::Config
 impl<'a> Config<'a> {
-    // TODO: Remove on 0.13 version release.
-    /// **DEPRECATED**, use [`Config::with_max_level()`] instead.
-    #[deprecated(note = "use `.with_max_level()` instead")]
-    pub fn with_min_level(self, level: log::Level) -> Self {
-        self.with_max_level(level.to_level_filter())
-    }
-
     /// Changes the maximum log level.
     ///
     /// Note, that `Trace` is the maximum level, because it provides the
@@ -153,15 +146,6 @@ pub fn init(config: Config) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn test_with_min_level() {
-        let config = Config::default()
-            .with_min_level(log::Level::Trace)
-            .with_min_level(log::Level::Error);
-
-        assert_eq!(config.log_level, Some(log::LevelFilter::Error));
-    }
 
     #[test]
     fn test_with_max_level() {

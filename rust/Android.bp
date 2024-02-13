@@ -87,13 +87,6 @@ rust_test {
 }
 
 rust_test {
-    name: "logger_test_config_log_level_deprecated",
-    defaults: ["liblogger_test_defaults"],
-    host_supported: true,
-    srcs: ["tests/config_log_level_deprecated.rs"],
-}
-
-rust_test {
     name: "logger_test_multiple_init",
     defaults: ["liblogger_test_defaults"],
     host_supported: true,
