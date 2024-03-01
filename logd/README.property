@@ -33,7 +33,8 @@ ro.logd.size               number svelte default for persist.logd.size. Larger
 persist.logd.size.<buffer> number  ro    Size of the buffer for <buffer> log
 ro.logd.size.<buffer>      number svelte default for persist.logd.size.<buffer>
 ro.config.low_ram          bool   false  if true, ro.logd.kernel defaults to false,
-                                         and logd.size is 64K instead of 256K.
+                                         and (if ro.debuggable is unset/false)
+                                         logd.size is 64K instead of 256K.
 persist.logd.filter        string        Pruning filter to optimize content.
                                          At runtime use: logcat -P "<string>"
 ro.logd.filter       string "~! ~1000/!" default for persist.logd.filter.

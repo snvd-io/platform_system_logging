@@ -77,7 +77,12 @@ size_t GetBufferSizeFromProperties(log_id_t log_id) {
         }
     }
 
-    if (android::base::GetBoolProperty("ro.config.low_ram", false)) {
+    /*
+     * For non-debuggable low_ram devices, we want to save memory here and use
+     * the minimum size.
+     */
+    const auto isLowRam = android::base::GetBoolProperty("ro.config.low_ram", false);
+    if (isLowRam && !isDebuggable) {
         return kLogBufferMinSize;
     }
 
