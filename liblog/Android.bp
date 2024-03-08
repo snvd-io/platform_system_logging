@@ -229,6 +229,8 @@ rust_bindgen {
         "--allowlist-function=__android_log_security",
         "--allowlist-type=log_id",
     ],
+    vendor_available: true,
+    product_available: true,
 }
 
 rust_test {

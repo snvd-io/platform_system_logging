@@ -20,9 +20,15 @@ use std::os::raw::c_char;
 pub use log_bindgen::log_id_LOG_ID_SECURITY as LogIdSecurity;
 
 /// Whether security logging is enabled.
+#[cfg(not(android_vndk))]
 fn security_log_enabled() -> bool {
     // SAFETY: The call doesn't require any preconditions and only returns an int, so must be safe.
     unsafe { log_bindgen::__android_log_security() != 0 }
+}
+
+#[cfg(android_vndk)]
+fn security_log_enabled() -> bool {
+    false
 }
 
 /// A struct representing that liblog call returned an error. No details are provided.
