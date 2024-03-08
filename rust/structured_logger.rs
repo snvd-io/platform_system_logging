@@ -14,7 +14,7 @@
 
 //! # Structed Logger API for Android
 
-use log_event_list::{LogContext, LogContextError};
+use log_event_list::__private_api::{LogContext, LogContextError};
 
 /// Add functionality to a type to log to a LogContext
 pub trait Value {
@@ -86,6 +86,7 @@ pub const LOG_ID_STATS: u32 = log_event_list_bindgen::log_id_LOG_ID_STATS;
 
 /// Add a structured log entry to buffer $log_id.
 /// Should not be used directly, but the macros below.
+/// Warning: Since this macro is internal, it may change any time.
 /// Usage: __structured_log_internal!(LOG_ID, TAG, value1, value2, ...)
 /// Returns Result:
 ///   Ok if entry was written successfully
@@ -96,8 +97,8 @@ macro_rules! __structured_log_internal {
     ($log_id:expr, $tag:expr, $($entry:expr),+) => (
         {
             let mut ctx =
-                log_event_list::LogContext::new($log_id, $tag)
-                    .ok_or(log_event_list::LogContextError).map_err(|_|
+                log_event_list::__private_api::LogContext::new($log_id, $tag)
+                    .ok_or(log_event_list::__private_api::LogContextError).map_err(|_|
                 "Unable to create a log context");
             $(ctx = ctx.and_then(|c| $crate::Value::add_to_context(&$entry, c)
                 .map_err(|_| "unable to log value"));)+;
@@ -123,7 +124,7 @@ macro_rules! structured_log {
     );
     ($tag:expr, $($entry:expr),+) => (
         {
-        $crate::__structured_log_internal!($crate::LOG_ID_EVENTS, $tag, $($entry),+)
+            $crate::__structured_log_internal!($crate::LOG_ID_EVENTS, $tag, $($entry),+)
         }
     )
 }
