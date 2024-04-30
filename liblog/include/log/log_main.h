@@ -27,7 +27,7 @@ __BEGIN_DECLS
 /*
  * Normally we strip the effects of ALOGV (VERBOSE messages),
  * LOG_FATAL and LOG_FATAL_IF (FATAL assert messages) from the
- * release builds be defining NDEBUG.  You can modify this (for
+ * release builds by defining NDEBUG.  You can modify this (for
  * example with "#define LOG_NDEBUG 0" at the top of your source
  * file) to change that behavior.
  */
