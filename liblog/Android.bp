@@ -195,7 +195,10 @@ ndk_headers {
     name: "liblog_ndk_headers",
     from: "include/android",
     to: "android",
-    srcs: ["include/android/log.h"],
+    srcs: [
+        "include/android/log.h",
+        "include/android/log_macros.h",
+    ],
     license: "NOTICE",
 }
 
