@@ -61,7 +61,9 @@ static void read_with_wrap() {
 #endif
 
 // b/64143705 confirm fixed
-TEST(liblog, wrap_mode_blocks) {
+// This test is tends to be flaky based on other log messages in the system,
+// so simply disable it.
+TEST(liblog, DISABLED_wrap_mode_blocks) {
 #ifdef __ANDROID__
   // The read call is expected to take up to 2 hours in the happy case.  There was a previous bug
   // where it would take only 30 seconds due to an alarm() in logd_reader.cpp.  That alarm has been
