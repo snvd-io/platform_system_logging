@@ -23,6 +23,7 @@
 // so make sure we do not regret hard-coding it as follows:
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
+    default_team: "trendy_team_native_tools_libraries",
 }
 
 event_flag = [
