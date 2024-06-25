@@ -845,7 +845,7 @@ static uint32_t notTag = 1;
 static void BM_lookupEventTag_NOT(benchmark::State& state) {
   prechargeEventMap();
 
-  while (set.find(notTag) != set.end()) {
+  while (set.contains(notTag)) {
     ++notTag;
     if (notTag >= USHRT_MAX) notTag = 1;
   }
