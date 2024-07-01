@@ -86,7 +86,7 @@ static void RunLogTests(log_id_t log_buffer, FWrite write_messages, FCheck check
   pid_t pid = getpid();
 
   auto logger_list = std::unique_ptr<struct logger_list, ListCloser>{
-      android_logger_list_open(log_buffer, 0, 1000, pid)};
+      android_logger_list_open(log_buffer, 0, INT_MAX, pid)};
   ASSERT_TRUE(logger_list);
 
   write_messages();
@@ -107,7 +107,7 @@ static void RunLogTests(log_id_t log_buffer, FWrite write_messages, FCheck check
   }
 
   auto logger_list_non_block = std::unique_ptr<struct logger_list, ListCloser>{
-      android_logger_list_open(log_buffer, ANDROID_LOG_NONBLOCK, 1000, pid)};
+      android_logger_list_open(log_buffer, ANDROID_LOG_NONBLOCK, INT_MAX, pid)};
   ASSERT_TRUE(logger_list_non_block);
 
   size_t count = 0;
@@ -567,7 +567,7 @@ TEST(liblog, android_logger_list_read__cpu_signal) {
 
   v += pid & 0xFFFF;
 
-  ASSERT_TRUE(NULL != (logger_list = android_logger_list_open(LOG_ID_EVENTS, 0, 1000, pid)));
+  ASSERT_TRUE(NULL != (logger_list = android_logger_list_open(LOG_ID_EVENTS, 0, INT_MAX, pid)));
 
   int count = 0;
 
@@ -720,7 +720,7 @@ TEST(liblog, android_logger_list_read__cpu_thread) {
 
   v += pid & 0xFFFF;
 
-  ASSERT_TRUE(NULL != (logger_list = android_logger_list_open(LOG_ID_EVENTS, 0, 1000, pid)));
+  ASSERT_TRUE(NULL != (logger_list = android_logger_list_open(LOG_ID_EVENTS, 0, INT_MAX, pid)));
 
   int count = 0;
 
@@ -1530,7 +1530,7 @@ static int count_matching_ts(log_time ts) {
   pid_t pid = getpid();
 
   struct logger_list* logger_list =
-      android_logger_list_open(LOG_ID_EVENTS, ANDROID_LOG_NONBLOCK, 1000, pid);
+      android_logger_list_open(LOG_ID_EVENTS, ANDROID_LOG_NONBLOCK, INT_MAX, pid);
 
   int count = 0;
   if (logger_list == NULL) return count;
@@ -1769,7 +1769,7 @@ TEST(liblog, __security_buffer) {
   pid_t pid = getpid();
 
   ASSERT_TRUE(NULL != (logger_list = android_logger_list_open(LOG_ID_SECURITY, ANDROID_LOG_NONBLOCK,
-                                                              1000, pid)));
+                                                              INT_MAX, pid)));
 
   log_time ts(CLOCK_MONOTONIC);
 
