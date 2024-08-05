@@ -877,9 +877,9 @@ static int android_log_printBinaryEvent(const unsigned char** pEventData, size_t
           }
           break;
         case TYPE_MONOTONIC: {
-          static const uint64_t minute = 60;
-          static const uint64_t hour = 60 * minute;
-          static const uint64_t day = 24 * hour;
+          static constexpr uint64_t minute = 60;
+          static constexpr uint64_t hour = 60 * minute;
+          static constexpr uint64_t day = 24 * hour;
 
           /* Repaint as unsigned seconds, minutes, hours ... */
           outBuf -= outCount;
