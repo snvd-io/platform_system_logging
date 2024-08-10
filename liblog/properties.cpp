@@ -31,8 +31,7 @@
 #include "logger_write.h"
 
 #ifdef __ANDROID__
-#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
+#include <sys/system_properties.h>
 
 static pthread_mutex_t lock_loggable = PTHREAD_MUTEX_INITIALIZER;
 
