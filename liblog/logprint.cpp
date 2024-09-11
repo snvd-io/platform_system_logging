@@ -495,7 +495,6 @@ int android_log_processLogBuffer(struct logger_entry* buf, AndroidLogEntry* entr
 
   entry->tv_sec = buf->sec;
   entry->tv_nsec = buf->nsec;
-  entry->log_id = static_cast<log_id_t>(buf->lid);
   entry->uid = -1;
   entry->pid = buf->pid;
   entry->tid = buf->tid;
@@ -975,7 +974,6 @@ int android_log_processBinaryLogBuffer(
 
   entry->tv_sec = buf->sec;
   entry->tv_nsec = buf->nsec;
-  entry->log_id = static_cast<log_id_t>(buf->lid);
   entry->priority = ANDROID_LOG_INFO;
   entry->uid = -1;
   entry->pid = buf->pid;
