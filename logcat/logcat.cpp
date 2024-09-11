@@ -38,6 +38,7 @@
 #include <unistd.h>
 
 #include <memory>
+#include <optional>
 #include <regex>
 #include <set>
 #include <string>
@@ -63,6 +64,7 @@
 #include "process_names.h"
 
 using com::android::logcat::proto::LogcatEntryProto;
+using com::android::logcat::proto::LogcatLogIdProto;
 using com::android::logcat::proto::LogcatPriorityProto;
 
 #define DEFAULT_MAX_ROTATED_LOGS 4
@@ -289,6 +291,32 @@ LogcatPriorityProto Logcat::GetProtoPriority(const AndroidLogEntry& entry) {
     }
     return com::android::logcat::proto::UNKNOWN;
 }
+
+std::optional<LogcatLogIdProto> GetProtoLogId(const log_id_t log_id) {
+    switch (log_id) {
+        case LOG_ID_MAIN:
+            return LogcatLogIdProto::MAIN;
+        case LOG_ID_RADIO:
+            return LogcatLogIdProto::RADIO;
+        case LOG_ID_EVENTS:
+            return LogcatLogIdProto::EVENTS;
+        case LOG_ID_SYSTEM:
+            return LogcatLogIdProto::SYSTEM;
+        case LOG_ID_CRASH:
+            return LogcatLogIdProto::CRASH;
+        case LOG_ID_STATS:
+            return LogcatLogIdProto::STATS;
+        case LOG_ID_SECURITY:
+            return LogcatLogIdProto::SECURITY;
+        case LOG_ID_KERNEL:
+            return LogcatLogIdProto::KERNEL;
+        case LOG_ID_MAX:
+        case LOG_ID_DEFAULT:
+            break;
+    }
+    return std::nullopt;
+}
+
 uint64_t Logcat::PrintToProto(const AndroidLogEntry& entry) {
     // Convert AndroidLogEntry to LogcatEntryProto
     LogcatEntryProto proto;
@@ -300,6 +328,9 @@ uint64_t Logcat::PrintToProto(const AndroidLogEntry& entry) {
     proto.set_tid(entry.tid);
     proto.set_tag(entry.tag, entry.tagLen);
     proto.set_message(entry.message, entry.messageLen);
+    if (auto proto_log_id = GetProtoLogId(entry.log_id)) {
+        proto.set_log_id(*proto_log_id);
+    }
     const std::string name = process_names_.Get(entry.pid);
     if (!name.empty()) {
         proto.set_process_name(name);

@@ -57,6 +57,7 @@ typedef struct AndroidLogFormat_t AndroidLogFormat;
 typedef struct AndroidLogEntry_t {
   time_t tv_sec;
   long tv_nsec;
+  log_id_t log_id;
   android_LogPriority priority;
   int32_t uid;
   int32_t pid;
