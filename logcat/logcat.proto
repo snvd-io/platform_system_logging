@@ -16,6 +16,25 @@ enum LogcatPriorityProto {
   SILENT = 9;
 }
 
+enum LogcatLogIdProto {
+  /* The main log buffer. This is the only log buffer available to apps. */
+  MAIN = 0;
+  /* The radio log buffer. */
+  RADIO = 1;
+  /* The event log buffer. */
+  EVENTS = 2;
+  /* The system log buffer. */
+  SYSTEM = 3;
+  /* The crash log buffer. */
+  CRASH = 4;
+  /* The statistics log buffer. */
+  STATS = 5;
+  /* The security log buffer. */
+  SECURITY = 6;
+  /* The kernel log buffer. */
+  KERNEL = 7;
+}
+
 message LogcatEntryProto {
   uint64 time_sec = 1;
   uint64 time_nsec = 2;
@@ -26,4 +45,5 @@ message LogcatEntryProto {
   bytes tag = 7;
   bytes message = 8;
   optional string process_name = 9;
+  optional LogcatLogIdProto log_id = 10;
 }
